@@ -1,23 +1,40 @@
 \c blog
 
--- 1. My posts sorted by date
+-- 2. Get a listing of all posts grouped by year.
 
-SELECT posts.title, users.user_name, posts.created_at, posts.content, categories.name
-  FROM users, posts, categories
-  WHERE posts.created_at >= current_date - interval '7 days';
-
-
+SELECT title, extract(year FROM created_at::DATE) AS year
+  FROM posts
+  ORDER BY created_at DESC;
 
 
+
+
+-- 4. Which posts contain a specific keyword?
+
+SELECT title, content FROM posts WHERE content ILIKE '% the %';
+
+        -- SELECT title, content FROM posts WHERE content ~* ' the ';
+
+
+-- 6.  Get a specific user's posts sorted by date of most recent comment.
+
+-- SELECT
+
+
+-- 9.  Get the top 5 wordiest posts (just by character count – don't actually count words).
+
+--SELECT title, sum(length(content)) AS character_count FROM posts GROUP BY title LIMIT 5;
+SELECT title, sum(length(content)) AS character_count FROM posts GROUP BY title ORDER BY character_count DESC LIMIT 5;
+
+
+-- Inner Join
 -- SELECT b.id, b.title, b.published_on, a.name, a.birthday
 --     FROM authors a, books b
 --     WHERE a.id = b.author_id
 --     and a.name = 'Stephen King'
 
 
-
-
-    -- -- Left joins
+-- -- Left joins
 -- SELECT books.title, authors.name FROM books
 --   LEFT OUTER JOIN authors
 --   ON (books.author_id = authors.id);
@@ -25,3 +42,9 @@ SELECT posts.title, users.user_name, posts.created_at, posts.content, categories
 -- SELECT * FROM books
 --   LEFT OUTER JOIN authors
 --   ON (books.author_id = authors.id);
+
+-- Right joins
+
+-- Outer joins
+
+-- Full joins
