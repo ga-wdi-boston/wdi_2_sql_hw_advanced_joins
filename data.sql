@@ -39,9 +39,9 @@ WITH temp (login, title, content, category, created_at) AS
 )
 
 INSERT INTO posts
-  (author_id, title, content, created_at, category_id)
+  (author_id, title, content, category_id, created_at)
 SELECT
-  users.id, temp.title, temp.content, temp.created_at::timestamp, categories.id
+  users.id, temp.title, temp.content, categories.id, temp.created_at::timestamp
 FROM
   users JOIN temp
     ON temp.login = users.login
@@ -55,6 +55,7 @@ WITH temp (login, title, content, created_at) AS
   ('Chris', 'Harry Potter and the Goblet of Fire', 'It was excellent and amazing all in one.', '2014-03-25 23:34:00'),
   ('Jill', 'Watch A Mariachi Band Perform Zelda Music At A Wedding', 'Such good. Very music.', '2013-11-21 23:34:00'),
   ('Jill', 'Justin Timberlake Album Release Party', 'How come no one invited me?', '2013-06-03 23:34:00'),
+  ('Jill','Harry Potter and the Philosophers Stone Review', 'I read it in Spanish, top that.', '2014-03-23 13:34:00'),
   ('Jack', 'Upcoming Hackathons', 'Can not wait for the next hackaton.', '2013-12-20 23:34:00'),
   ('Hill', 'Watch A Mariachi Band Perform Zelda Music At A Wedding', 'Such good. Very music.', '2014-02-12 23:34:00'),
   ('Kelly',  'How to live a more stress free life', 'Will give these tips a try this weekend', '2014-03-15 23:34:00'),
@@ -70,4 +71,5 @@ FROM
   users JOIN temp
     ON temp.login = users.login
     JOIN posts
-      ON temp.title = posts.title;
+      ON temp.title = posts.title
+
