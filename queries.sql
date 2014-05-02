@@ -12,6 +12,7 @@
   SELECT * FROM posts WHERE content ~*' bear ';
 
 \echo '5. Which category of post has each user made the most comments on?'
+  SELECT *
 
 
 \echo '6. Get a specific users posts sorted by date of most recent comment.'
@@ -37,6 +38,10 @@
 -- in the postgres documentation. I tried looking up "nested" queries,
 -- and, believe it or not, that isn't the same thing.
 
+-- This one gives us the posts for a given user, sorted by the comments created_at
+-- dates. But we see the same post multiple times, which is not exactly what we want.
+-- We just want one of each post. I could not figure out how to limit the posts here.
+-- I submit this answer, as it was the closest I could get.
 SELECT posts.title, comments.content, comments.created_at FROM posts
   JOIN comments ON comments.post_id = posts.id
   JOIN users ON posts.author_id = users.id
