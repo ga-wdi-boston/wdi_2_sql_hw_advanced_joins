@@ -12,7 +12,6 @@
   SELECT * FROM posts WHERE content ~*' bear ';
 
 \echo '5. Which category of post has each user made the most comments on?'
-  SELECT *
 
 
 \echo '6. Get a specific users posts sorted by date of most recent comment.'
