@@ -12,13 +12,21 @@ SELECT title, extract(year FROM created_at::DATE) AS year
 -- 4. Which posts contain a specific keyword?
 
 SELECT title, content FROM posts WHERE content ILIKE '% the %';
-
-        -- SELECT title, content FROM posts WHERE content ~* ' the ';
+-- SELECT title, content FROM posts WHERE content ~* ' the ';
 
 
 -- 6.  Get a specific user's posts sorted by date of most recent comment.
 
--- SELECT
+SELECT users.user_name, posts.title, comments.content, comments.created_at
+  FROM posts, users, comments
+  WHERE users.id = posts.user_id AND posts.id = comments.post_id
+  ORDER BY comments.created_at DESC LIMIT 1;
+
+
+
+-- SELECT users.user_name, posts.title
+--   FROM posts, users
+--   WHERE users.id = posts.user_id;
 
 
 -- 9.  Get the top 5 wordiest posts (just by character count – don't actually count words).

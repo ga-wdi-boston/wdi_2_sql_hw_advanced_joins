@@ -47,7 +47,7 @@ WITH second_insert (author, title, created_at, content) AS
     ('clafontant', 'Twitter Bootstrap', '2014-04-22', 'I look forward to using this for my next layout.'),
     ('agrant','Database Tips and Tricks', '2014-04-26', 'Nobody actually ever does this.'),
     ('lplesko','Hackathon this weekend!', '2014-04-27', 'Sounds fun, I plan on attending!'),
-    ('egould','Hackathon this weekend!', '2014-04-28', 'I just picked up my ticket, I can not wait to attend.')
+    ('egould','Hackathon this weekend!', '2014-04-29', 'I just picked up my ticket, I can not wait to attend.')
     )
 INSERT INTO comments
   (user_id, post_id, created_at, content)
