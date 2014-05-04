@@ -73,7 +73,7 @@ WITH temp (login, title, content, created_at) AS
 INSERT INTO comments
   (author_id, post_id, content)
 SELECT
-  users.id, posts.id, temp.content, temp.created_at::date
+  users.id, posts.id, temp.content
 FROM
   users JOIN temp
     ON temp.login = users.login
