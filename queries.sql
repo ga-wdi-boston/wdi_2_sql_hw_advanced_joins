@@ -1,18 +1,16 @@
-\c blog
+\c hw_joins
 -- 1. Get posts containing a specific keyword (e.g. "about").
-SELECT title FROM posts WHERE content ILIKE '%about%';
+SELECT * FROM posts WHERE content ILIKE '%about%';
 
 -- 2. Get a listing of all posts grouped by year.
-SELECT extract(year from created_at), title
+SELECT extract(year from created_at), posts
   FROM posts
-  GROUP BY extract(year from created_at), title
+  GROUP BY extract(year from created_at), posts
   ORDER BY extract(year from created_at);
 
 -- 3. Get the top 5 wordiest posts by character count.
--- SELECT title, COUNT(content)
---   FROM posts
---   ORDER BY COUNT(content) DESC
---   LIMIT 5;
+SELECT * FROM posts
+  ORDER BY char_length(content) DESC LIMIT 5;
 
 -- 4. Find how many comments each user has across all of their posts.
 SELECT users.login, COUNT(comments.*)
