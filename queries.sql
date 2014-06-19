@@ -1,5 +1,5 @@
 -- 1. Get posts containing a specific keyword (e.g. "about").
-
+SELECT * FROM posts WHERE content ILIKE '%about%';
 
 -- 2. Get a listing of all posts grouped by year.
 
