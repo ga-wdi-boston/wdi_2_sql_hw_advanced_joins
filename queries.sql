@@ -54,3 +54,7 @@ SELECT posts
   WHERE comments.post_id = posts.id AND comments.author_id != posts.author_id AND posts.author_id = 13;
 
 -- 10. Find which category of post each user has made the most comments on.
+SELECT users.login, MAX(categories.name)
+  FROM users, comments, posts, categories
+  WHERE users.id = comments.author_id AND comments.post_id = posts.id AND posts.category_id = categories.id
+  GROUP BY users.login, categories.name;
