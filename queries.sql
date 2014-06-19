@@ -35,7 +35,7 @@ SELECT users.login, categories.name, COUNT(comments.*)
 -- 7. Get the 5 most-commented-on posts that were created in the last 7 days.
 SELECT COUNT(comments.*), posts
   FROM posts, comments
-  WHERE comments.post_id = posts.id AND posts.created_at > CURRENT_TIMESTAMP - interval '7 days'
+  WHERE comments.post_id = posts.id AND posts.created_at > CURRENT_TIMESTAMP - interval '7 days' AND posts.created_at < CURRENT_TIMESTAMP
   GROUP BY posts
   ORDER BY COUNT(comments.*) DESC LIMIT 5;
 
