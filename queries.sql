@@ -49,6 +49,8 @@ SELECT posts
 
 -- 9. Get all posts by a specific user that have comments,
 --    but which that user hasn't commented on.
-
+SELECT posts
+  FROM posts, comments
+  WHERE comments.post_id = posts.id AND comments.author_id != posts.author_id AND posts.author_id = 13;
 
 -- 10. Find which category of post each user has made the most comments on.
