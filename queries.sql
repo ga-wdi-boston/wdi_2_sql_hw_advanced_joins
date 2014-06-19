@@ -13,7 +13,10 @@ SELECT title, length(content) FROM posts ORDER BY length(content) DESC LIMIT 5;
 
 -- 4. Find how many comments each user has across all of their posts.
 
-
+SELECT users.login, COUNT(comments.*)
+  FROM users, posts, comments
+  WHERE users.id = posts.author_id AND posts.id = comments.post_id
+  GROUP BY users.login;
 
 -- 5. Get a specific user's posts sorted by date of most recent comment.
 
