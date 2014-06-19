@@ -1,7 +1,10 @@
+\c hw_joins
 -- 1. Get posts containing a specific keyword (e.g. "about").
 
+SELECT * FROM POSTS WHERE content LIKE '%about%';
 
 -- 2. Get a listing of all posts grouped by year.
+
 
 
 -- 3. Get the top 5 wordiest posts by character count.
