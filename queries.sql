@@ -1,14 +1,20 @@
+\c hw_joins
 -- 1. Get posts containing a specific keyword (e.g. "about").
-
+SELECT * FROM posts WHERE content ILIKE '%about%';
 
 -- 2. Get a listing of all posts grouped by year.
-
+SELECT * FROM posts
+  ORDER BY extract(year from created_at);
 
 -- 3. Get the top 5 wordiest posts by character count.
-
+SELECT * FROM posts
+  ORDER BY length(content) DESC LIMIT 5;
 
 -- 4. Find how many comments each user has across all of their posts.
-
+SELECT u.login, COUNT(c.*)
+  FROM users u, posts p, comments c
+  WHERE c.post_id = p.id AND p.author_id = u.id
+  GROUP BY u.login;
 
 -- 5. Get a specific user's posts sorted by date of most recent comment.
 
