@@ -5,12 +5,14 @@ SELECT * FROM posts WHERE content LIKE '%about%';
 
 -- 2. Get a listing of all posts grouped by year.
 
-SELECT title, EXTRACT (year FROM created_at) FROM posts ORDER BY EXTRACT (year FROM created_at);
+-- SELECT title, EXTRACT (year FROM created_at) FROM posts ORDER BY EXTRACT (year FROM created_at);
 
 -- 3. Get the top 5 wordiest posts by character count.
 
+SELECT title, length(content) FROM posts ORDER BY length(content) DESC LIMIT 5;
 
 -- 4. Find how many comments each user has across all of their posts.
+
 
 
 -- 5. Get a specific user's posts sorted by date of most recent comment.
