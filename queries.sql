@@ -1,8 +1,13 @@
+-- Jake Austin
+--GA WDI Boston June
+-- June 19, 2014
 \c hw_joins
 -- 1. Get posts containing a specific keyword (e.g. "about").
 SELECT * FROM posts WHERE content ILIKE '%about%';
 
 -- 2. Get a listing of all posts grouped by year.
+--  These are in descending order but not actually grouped by year
+--  According to David the fix is wierd, he will show me tomorrow
 SELECT * FROM posts
   ORDER BY extract(year from created_at);
 
@@ -17,7 +22,11 @@ SELECT u.login, COUNT(c.*)
   GROUP BY u.login;
 
 -- 5. Get a specific user's posts sorted by date of most recent comment.
-
+--   For George, one post gets reported TWICE - David said to debug tomorrow
+SELECT p.content, c.created_at
+  FROM users u, posts p, comments c
+  WHERE u.login = 'Tanya' AND p.author_id = u.id AND c.post_id = p.id
+  ORDER BY c.created_at DESC;
 
 -- 6. Find how many comments each user has made per post category.
 
