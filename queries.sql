@@ -20,7 +20,7 @@ SELECT users.login, COUNT(comments.*)
   ORDER BY COUNT(comments.*);
 
 -- 5. Get a specific user's posts sorted by date of most recent comment.
-SELECT posts.title
+SELECT posts
   FROM users, posts, comments
   WHERE comments.post_id = posts.id AND posts.author_id = users.id AND users.login = 'George'
   ORDER BY comments.created_at DESC;
@@ -33,15 +33,19 @@ SELECT users.login, categories.name, COUNT(comments.*)
   ORDER BY users.login;
 
 -- 7. Get the 5 most-commented-on posts that were created in the last 7 days.
-SELECT posts.title, COUNT(comments.*)
+SELECT COUNT(comments.*), posts
   FROM posts, comments
   WHERE comments.post_id = posts.id AND posts.created_at > CURRENT_TIMESTAMP - interval '7 days'
-  GROUP BY posts.title
+  GROUP BY posts
   ORDER BY COUNT(comments.*) DESC LIMIT 5;
 
 -- 8. Get the 5 posts with the longest-running comment threads
 --    (longest time between first and last comments).
-
+SELECT posts
+  FROM posts, comments
+  WHERE comments.post_id = posts.id
+  GROUP BY posts
+  ORDER BY (MAX(comments.created_at) - MIN(comments.created_at)) DESC LIMIT 5;
 
 -- 9. Get all posts by a specific user that have comments,
 --    but which that user hasn't commented on.
