@@ -3,7 +3,7 @@ SELECT * FROM posts WHERE content ILIKE '%about%';
 
 -- 2. Get a listing of all posts grouped by year.
 
-SELECT id, EXTRACT(year from created_at) as yyyy FROM posts GROUP BY 1,2 ORDER BY created_at;
+SELECT id, content, EXTRACT(year from created_at) as yyyy FROM posts GROUP BY 1,2 ORDER BY created_at;
 -- 3. Get the top 5 wordiest posts by character count.
 
 
