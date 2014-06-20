@@ -31,9 +31,27 @@ select posts.title, MAX(comments.created_at) from users
 
 
 -- 6. Find how many comments each user has made per post category.
+select users.login, categories.name, count(comments.*)
+  from users
+  inner join comments
+  on comments.author_id = users.id
+  inner join posts
+  on comments.post_id = posts.id
+  inner join categories
+  on posts.category_id = categories.id
+  group by categories.name, users.login
+  order by users.login;
 
 
 -- 7. Get the 5 most-commented-on posts that were created in the last 7 days.
+select posts.title, count(comments.*)
+  from posts
+  inner join comments
+  on comments.post_id = posts.id
+  where posts.created_at > current_date - 7
+  group by posts.title
+  order by count(comments.*) DESC
+  LIMIT 5;
 
 
 -- 8. Get the 5 posts with the longest-running comment threads
