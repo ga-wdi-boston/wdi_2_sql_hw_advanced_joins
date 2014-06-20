@@ -20,7 +20,7 @@ SELECT users.login, COUNT(comments.*)
 
 -- 5. Get a specific user's posts sorted by date of most recent comment.
 
-SELECT posts.title, max(comments.created_at)
+SELECT posts.title, max(comments.created_at) AS most_recent_comment_date
   FROM
     users INNER JOIN posts
       ON users.id = posts.author_id
@@ -29,11 +29,9 @@ SELECT posts.title, max(comments.created_at)
   WHERE users.login = 'Jill'
   GROUP BY posts.title;
 
---come back to this
-
 -- 6. Find how many comments each user has made per post category.
 
-SELECT DISTINCT users.login, categories.name, COUNT(comments.*)
+SELECT DISTINCT users.login, categories.name, COUNT(comments.*) AS comments_count
   FROM
     users INNER JOIN comments
       ON users.id = comments.author_id
@@ -47,6 +45,15 @@ SELECT DISTINCT users.login, categories.name, COUNT(comments.*)
 
 -- 7. Get the 5 most-commented-on posts that were created in the last 7 days.
 
+SELECT posts.title, COUNT(comments.*) AS comments_count
+  FROM
+    posts INNER JOIN comments
+      ON posts.id = comments.post_id
+
+  WHERE posts.created_at > current_date - interval '10' day
+
+  GROUP BY posts.title
+  ORDER BY comments_count DESC LIMIT 5;
 
 -- 8. Get the 5 posts with the longest-running comment threads
 --    (longest time between first and last comments).
