@@ -17,12 +17,10 @@ SELECT users.login, COUNT(*)
   GROUP BY users.login;
 
 -- 5. Get a specific user's posts sorted by date of most recent comment.
-SELECT posts.title, users.login, comments.created_at
+SELECT posts.title, users.login, MAX(comments.created_at)
   FROM users, posts, comments
   WHERE users.id = posts.author_id AND posts.id = comments.post_id AND users.id = 5
-  ORDER BY comments.created_at DESC;
-
-  --doesnt eliminate duplicate posts (records for each comment)
+  GROUP BY posts.title, users.login
 
 -- 6. Find how many comments each user has made per post category.
 SELECT users.login, categories.name, COUNT(*)
@@ -53,8 +51,13 @@ SELECT users.login, posts.title FROM users
     ON (posts.id = comments.post_id)
       WHERE users.id = 13 AND comments.author_id != users.id;
 
-  --doesnt eliminate multiple comments on same post
+--doesnt eliminate multiple comments on same post
 
 
 -- 10. Find which category of post each user has made the most comments on.
+SELECT users.login, MAX(categories.name)
+  FROM categories, users, posts, comments
+  WHERE users.id = comments.author_id AND comments.post_id = posts.id AND posts.category_id = categories.id
+  GROUP BY users.login
+  ORDER BY users.login;
 
