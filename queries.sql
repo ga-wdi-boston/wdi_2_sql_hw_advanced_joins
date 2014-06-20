@@ -1,11 +1,18 @@
 -- 1. Get posts containing a specific keyword (e.g. "about").
-
 SELECT * FROM posts
 WHERE content LIKE '%about%';
+
 -- 2. Get a listing of all posts grouped by year.
--- SELECT id, description
--- FROM table
--- WHERE MATCH (description) AGAINST('keyword1 keyword2')
+SELECT EXTRACT (YEAR FROM created_at) AS PostYear, posts.title
+  FROM posts
+  GROUP BY PostYear, posts.title
+  ORDER BY PostYear;
+
+--  References:
+--    Grab just the year:
+--      http://www.w3schools.com/sql/func_extract.asp
+--    Group:
+--      http://www.tizag.com/sqlTutorial/sqlgroupby.php
 
 -- 3. Get the top 5 wordiest posts by character count.
 
