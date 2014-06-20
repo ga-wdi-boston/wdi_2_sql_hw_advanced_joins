@@ -67,6 +67,27 @@ select posts.title, MAX(comments.created_at) - MIN(comments.created_at) AS diffe
 
 -- 9. Get all posts by a specific user that have comments,
 --    but which that user hasn't commented on.
+select posts.title
+  from users
+  left join posts
+  on users.id = posts.author_id
+  inner join comments
+  on comments.post_id = posts.id
+  where users.login = 'George'
+  and comments.author_id <> posts.author_id
+  group by posts.title;
 
 
 -- 10. Find which category of post each user has made the most comments on.
+select users.login, categories.name
+  from users
+  inner join comments
+  on comments.author_id = users.id
+  left join posts
+  on users.id = posts.author_id
+  inner join categories
+  on posts.category_id =  categories.id
+  group by users.login, categories.name;
+
+
+
