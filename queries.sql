@@ -20,9 +20,31 @@ SELECT users.login, COUNT(comments.*)
 
 -- 5. Get a specific user's posts sorted by date of most recent comment.
 
+-- SELECT posts.title, comments.created_at
+--   FROM
+--     users INNER JOIN posts
+--       ON users.id = posts.author_id
+--       INNER JOIN comments
+--         ON posts.id = comments.post_id
+--   WHERE users.login = 'Jill' AND comments.created_at =
+--     (select max(created_at) FROM comments where users.id = comments.author_id)
+--   ORDER BY comments.created_at DESC;
+
+--come back to this
 
 -- 6. Find how many comments each user has made per post category.
 
+SELECT DISTINCT users.login, categories.name, COUNT(comments.*)
+  FROM
+    users INNER JOIN comments
+      ON users.id = comments.author_id
+      INNER JOIN posts
+      ON comments.post_id = posts.id
+      INNER JOIN categories
+      ON posts.category_id = categories.id
+
+  GROUP BY users.login, categories.name
+  ORDER BY users.login;
 
 -- 7. Get the 5 most-commented-on posts that were created in the last 7 days.
 
