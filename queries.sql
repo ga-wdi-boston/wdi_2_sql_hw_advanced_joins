@@ -64,3 +64,21 @@ SELECT posts.title, COUNT(comments.*) AS comments_count
 
 
 -- 10. Find which category of post each user has made the most comments on.
+
+-- SELECT users.login, categories.name, COUNT(comments.*)
+--   FROM
+--     comments INNER JOIN posts
+--       ON comments.post_id = posts.id
+--       INNER JOIN categories
+--         ON posts.category_id = categories.id
+
+--   WHERE
+
+
+
+
+
+
+
+
+
