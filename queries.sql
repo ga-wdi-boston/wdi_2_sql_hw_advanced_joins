@@ -1,22 +1,49 @@
 -- 1. Get posts containing a specific keyword (e.g. "about").
-
+SELECT content  FROM posts WHERE content LIKE '%what%';
 
 -- 2. Get a listing of all posts grouped by year.
-
+SELECT title, EXTRACT(year FROM created_at) FROM posts
+GROUP BY title, created_at
+ORDER BY created_at;
 
 -- 3. Get the top 5 wordiest posts by character count.
-
+SELECT * FROM posts
+ORDER BY (length(posts.content)) DESC
+LIMIT 5;
 
 -- 4. Find how many comments each user has across all of their posts.
 
+SELECT users.login, COUNT(comments.*) AS total_comments
+  FROM users, comments, posts
+  WHERE comments.post_id = posts.id
+    AND posts.author_id = users.id
+  GROUP BY users.login
+  ORDER BY total_comments;
 
 -- 5. Get a specific user's posts sorted by date of most recent comment.
-
+SELECT posts.title, posts.created_at AS recent_comments
+  FROM users, comments, posts
+  WHERE comments.post_id = posts.id
+    AND posts.author_id = users.id
+    AND users.login = 'Jill'
+  ORDER BY recent_comments;
 
 -- 6. Find how many comments each user has made per post category.
-
+SELECT users.login, categories.name, COUNT(comments.*) AS comments_count
+  FROM users, categories, comments, posts
+  WHERE comments.author_id = users.id
+    AND comments.post_id = posts.id
+    AND posts.category_id = categories.id
+  GROUP BY users.login, categories.name
+  ORDER BY comments_count;
 
 -- 7. Get the 5 most-commented-on posts that were created in the last 7 days.
+SELECT posts.title, comments.created_at, COUNT(comments.*) AS most_commented_on
+  FROM users, comments, posts
+ WHERE  comments.created_at > (CURRENT_TIMESTAMP - interval '7 days')
+GROUP BY comments.created_at, posts.title
+ORDER BY most_commented_on
+LIMIT 5;
 
 
 -- 8. Get the 5 posts with the longest-running comment threads
