@@ -15,6 +15,15 @@ SELECT EXTRACT (YEAR FROM created_at) AS PostYear, posts.title
 --      http://www.tizag.com/sqlTutorial/sqlgroupby.php
 
 -- 3. Get the top 5 wordiest posts by character count.
+SELECT CHAR_LENGTH(content) as LengthOfContent, posts.title
+  FROM posts
+  GROUP BY posts.title, LengthOfContent
+  ORDER BY LengthOfContent DESC
+  LIMIT 5;
+
+--  References:
+--    Length
+--      http://www.postgresql.org/docs/8.1/static/functions-string.html
 
 
 -- 4. Find how many comments each user has across all of their posts.
