@@ -20,15 +20,14 @@ SELECT users.login, COUNT(comments.*)
 
 -- 5. Get a specific user's posts sorted by date of most recent comment.
 
--- SELECT posts.title, comments.created_at
---   FROM
---     users INNER JOIN posts
---       ON users.id = posts.author_id
---       INNER JOIN comments
---         ON posts.id = comments.post_id
---   WHERE users.login = 'Jill' AND comments.created_at =
---     (select max(created_at) FROM comments where users.id = comments.author_id)
---   ORDER BY comments.created_at DESC;
+SELECT posts.title, max(comments.created_at)
+  FROM
+    users INNER JOIN posts
+      ON users.id = posts.author_id
+      INNER JOIN comments
+        ON posts.id = comments.post_id
+  WHERE users.login = 'Jill'
+  GROUP BY posts.title;
 
 --come back to this
 
