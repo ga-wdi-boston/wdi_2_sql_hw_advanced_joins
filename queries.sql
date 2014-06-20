@@ -5,7 +5,7 @@ SELECT * FROM posts WHERE content LIKE '%about%';
 
 -- 2. Get a listing of all posts grouped by year.
 
--- SELECT title, EXTRACT (year FROM created_at) FROM posts ORDER BY EXTRACT (year FROM created_at);
+SELECT title, EXTRACT (year FROM created_at) FROM posts ORDER BY EXTRACT (year FROM created_at);
 
 -- 3. Get the top 5 wordiest posts by character count.
 
@@ -50,7 +50,7 @@ SELECT posts.title, COUNT(comments.*) AS comments_count
     posts INNER JOIN comments
       ON posts.id = comments.post_id
 
-  WHERE posts.created_at > current_date - interval '10' day
+  WHERE posts.created_at > current_date - interval '7' day
 
   GROUP BY posts.title
   ORDER BY comments_count DESC LIMIT 5;
