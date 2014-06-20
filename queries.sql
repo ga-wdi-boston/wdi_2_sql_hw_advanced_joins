@@ -25,9 +25,36 @@ SELECT CHAR_LENGTH(content) as LengthOfContent, posts.title
 --    Length
 --      http://www.postgresql.org/docs/8.1/static/functions-string.html
 
-
 -- 4. Find how many comments each user has across all of their posts.
 
+-- This is calculating the number of comments per post and who wrote the post but posts by the same author need to be merged
+SELECT users.login,posts.title,COUNT(Comments.content) AS NumberOfComments
+  FROM comments
+  LEFT JOIN posts
+  ON comments.post_id=posts.id
+  LEFT JOIN users
+  ON posts.author_id=users.id
+  GROUP BY login, title;
+
+-- This is calculating the number of comments per user
+SELECT users.login,COUNT(Comments.content) AS NumberOfComments
+  FROM comments
+  LEFT JOIN users
+  ON comments.author_id=users.id
+  GROUP BY login;
+
+-- This is calculating the number of posts per category
+SELECT categories.name,COUNT(posts.title) AS NumberOfPosts
+  FROM posts
+  LEFT JOIN categories
+  ON posts.category_id=categories.id
+  GROUP BY name;
+
+
+--  References
+--    Group by
+--      http://www.w3schools.com/sql/sql_groupby.asp
+--      http://stackoverflow.com/questions/14995000/sql-inner-join-more-than-two-tables
 
 -- 5. Get a specific user's posts sorted by date of most recent comment.
 
