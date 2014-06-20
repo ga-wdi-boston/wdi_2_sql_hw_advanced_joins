@@ -31,6 +31,11 @@ ORDER BY num_comments_on_posts DESC;
 
 -- 5. Get a specific user's posts sorted by date of most recent comment.
 
+SELECT posts.content, posts.author_id, comments.post_id, comments.created_at
+  FROM posts, comments
+  WHERE posts.id = comments.post_id
+  AND posts.author_id = 13
+  ORDER BY comments.created_at DESC;
 
 -- 6. Find how many comments each user has made per post category.
 
