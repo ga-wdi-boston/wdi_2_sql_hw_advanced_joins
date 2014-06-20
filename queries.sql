@@ -20,6 +20,14 @@ select u.login, count(c.*) AS num_comments_user
   order by num_comments_user DESC;
 
 -- 5. Get a specific user's posts sorted by date of most recent comment.
+select posts.title, MAX(comments.created_at) from users
+  inner join posts
+  on posts.author_id = users.id
+  inner join comments
+  on comments.post_id = posts.id
+  where users.login = 'Jill'
+  group by posts.title
+  order by MAX(comments.created_at) desc;
 
 
 -- 6. Find how many comments each user has made per post category.
