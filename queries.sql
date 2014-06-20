@@ -56,6 +56,13 @@ select posts.title, count(comments.*)
 
 -- 8. Get the 5 posts with the longest-running comment threads
 --    (longest time between first and last comments).
+select posts.title, MAX(comments.created_at) - MIN(comments.created_at) AS difference
+  from posts
+  inner join comments
+  on comments.post_id = posts.id
+  group by posts.title
+  order by difference desc
+  LIMIT 5;
 
 
 -- 9. Get all posts by a specific user that have comments,
