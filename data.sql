@@ -78,7 +78,8 @@ WITH temp (login, title, content, category, created_at) AS
   ('Tanya', 'Title 36', 'Content of blog post what about bob.', 'Venture Capital', '2013-1-12'),
   ('Tanya', 'Title 37', 'Content of blog post go on.', 'Music', '2014-4-30'),
   ('Jill', 'Title 38', 'Content of blog post and on and on.', 'Venture Capital', '2012-11-11'),
-  ('Tanya', 'Title 39', 'Content of blog post supertroopers.', 'Music', '2009-9-19')
+  ('Tanya', 'Title 39', 'Content of blog post supertroopers.', 'Music', '2009-9-19'),
+  ('Clara', 'Title 40', 'Cool recent post that I posted yesterday', 'Music', '2014-6-18')
 )
 INSERT INTO posts
   (author_id, title, content, category_id, created_at)
