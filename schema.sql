@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS hw_joins;
+eDROP DATABASE IF EXISTS hw_joins;
 CREATE DATABASE hw_joins;
 \c hw_joins
 
